@@ -12,14 +12,14 @@ import pytest
 class Account():
     """Basic bank account, with added chat support for the cli user."""
 
-    def __init__(self, initial_balance = 0, chat = False ):
+    def __init__(self, initial_balance=0, chat=False):
         self.__Interest = False
         self.__Unit = 'dollars'
         self.__Balance = float(initial_balance)
         self.Conversion = {
-            'dollars':(1.0, "$"), 
-            'rmb':(5.0, "Y"), 
-            'reais':(3.3, "r$"),
+            'dollars': (1.0, "$"),
+            'rmb': (5.0, "Y"),
+            'reais': (3.3, "r$"),
         }
         if chat:
             print("Created account with a $" + str(initial_balance), "initial balance.")
@@ -27,12 +27,11 @@ class Account():
     def __str__(self):
         return "Current balance is " + str(self.__Balance) + str(self._Unit)
 
-
     def balance(self):
         return self.__Balance
-        
+
     def deposit(self, amount, chat=False, unit='dollars'):
-        if amount >=0:
+        if amount >= 0:  # jiachen: this is untested
             self.__Balance += float(amount)
             if chat:
                 print("Deposited $" + str(amount), "to account. New balance is $" + str(self.__Balance))
@@ -40,7 +39,7 @@ class Account():
                 return self.__Balance
 
     def withdraw(self, amount, chat=False, unit='dollars'):
-        if amount >=0:
+        if amount >= 0:  # jiachen: this is untested too
             self.__Balance -= float(amount)
             if chat:
                 print("Withdrew $" + str(amount), "from account. New balance is $" + str(self.__Balance))
@@ -64,8 +63,10 @@ def test01(empty_account):
 
 def test02(empty_account):
     """Is the balance encapsulated, i.e. unaccessible?"""
+    bal = 0.0
+    # F841 local variable 'bal' is assigned to but never used
     with pytest.raises(AttributeError) as except_info:
-        bal = empty_account.__Balance
+        bal += empty_account.__Balance
     assert "has no attribute" in str(except_info)
 
 
@@ -94,4 +95,3 @@ if __name__ == "__main__":
     acct = Account(0, True)
     acct.deposit(10, True)
     acct.withdraw(5, True)
-
