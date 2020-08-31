@@ -91,6 +91,16 @@ def test05(account_with_twenty):
     assert account_with_twenty.withdraw(5) == 15
 
 
+def test10():
+    """Jiachen create a test for deposit amounts less than 0 doesn't work"""
+    pass
+
+
+def test11():
+    """Jiachen create a test for withdrawls less than 0 don't work either"""
+    pass
+
+
 if __name__ == "__main__":
     acct = Account(0, True)
     acct.deposit(10, True)

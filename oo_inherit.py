@@ -15,9 +15,9 @@ class Colour():
         """Method to inherit"""
         return "This is the " + str(self.my_colour) + " colour class."
 
-    def __init__(self):
+    def __init__(self, initial_colour="missing"):
         """Method to override"""
-        self.my_colour = "missing"
+        self.my_colour = initial_colour
 
 
 def test01():
@@ -47,37 +47,28 @@ class Red(Colour):
 
 
 def test10():
-    """(Jiachen: Delete the 'pass' first) Check that Red knows it's name"""
+    """Check that Red knows it's name"""
     red = Red()
     assert red.my_colour == "Red"
 
 
 def test11():
-    """Jiachen: 'pass' deleted here too)Check that Red can use inherited __str()__"""
+    """Check that Red can use inherited __str()__"""
     red = Red()
     assert str(red) == "This is the Red colour class."
 
 
 class Blue(Colour):
-    """Jiachen: this is where you show how to inherit a class and extend it."""
+    """Use the super method"""
 
-    def mood(self):
-        return
+    def __init__(self):
+        super().__init__("Blue")
 
 
 def test20():
     """Test Blue"""
-    pass
-
-
-def test21():
-    """Test Blue's use of super"""
-    pass
-
-
-def test22():
-    """Test the blue new mathod, mood"""
-    # assert blue.mood() == "blue"
+    bule = Blue()
+    assert bule.my_colour == "Blue"
 
 
 if __name__ == "__main__":
