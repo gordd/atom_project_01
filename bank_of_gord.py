@@ -37,7 +37,7 @@ class Savings(Account):
         interest = super().balance() * float(self.__rate / 100.0)
         if chat:
             # print("Your balance pays", "$" + str(interest), "of interest.")
-            print("Your balance pays", "$%.2f"%interest, "of interest.")
+            print("Your balance pays $%.2f" % interest, "of interest.")
         else:
             return interest
 
@@ -95,7 +95,42 @@ def test13(account_with_twenty):
     assert account_with_twenty.pay_interest() == 2.0
 
 
+class Chequing(Savings):
+    """If the account balance is over 1,000, it pays interest. If less, not."""
+
+    def pay_interest(self, chat=False):
+        if self.balance() >= 1000:
+            return super().pay_interest(chat)
+        else:
+            if chat:
+                print("Sorry, account balance is below $1,000. No interest eligible.")
+            return 0.0
+
+
+@pytest.fixture
+def chequing_account_999():
+    """Create a chequing account that could pay 10% interest"""
+    return Chequing(999, False, 10)
+
+
+def test20(chequing_account_999):
+    """Can we create a chequing account? """
+    assert chequing_account_999 is not None
+
+
+def test21(chequing_account_999):
+    """Accounts with less than 1,000 don't pay interest"""
+    assert chequing_account_999.pay_interest() == 0.0
+
+
+def test22(chequing_account_999):
+    """see if depositing just one will cause interest to be paid"""
+    chequing_account_999.deposit(1)  # should tip the balance to 1,000
+    assert chequing_account_999.pay_interest() == 100.0
+
+
 if __name__ == "__main__":
+    print("Test savings account")
     acct = Savings(0, True, 4.5, 'brl')
     acct.set_interest_rate(10, True)
     acct.get_interest_rate(True)
@@ -106,3 +141,8 @@ if __name__ == "__main__":
     print(acct)
     acct.withdraw(5.55, True)
     print(acct)
+    print("Test chequing account")
+    acct = Chequing(999, True, 10, 'cad')
+    acct.pay_interest(True)
+    acct.deposit(1.00, True)
+    acct.pay_interest(True)
