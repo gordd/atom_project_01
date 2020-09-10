@@ -34,7 +34,7 @@ class Type2(Interface):
 
 
 # First demo: create two different objects that implement the interface
-one = Type1("blah")
+one = Type1("Blah Type")
 two = Type2()
 
 
@@ -44,7 +44,7 @@ for atype in (one, two):
     atype.method_B("bar")
 
 
-# Second demo: create a method_A that will use whatever type is needed.
+# Second demo: create methods that will use whatever type is needed.
 print("polymorphic function use")
 
 
