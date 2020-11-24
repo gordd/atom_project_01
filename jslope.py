@@ -329,13 +329,14 @@ def test17():
     else:
         print("Test_17: FAIL line_midpoint", line_midpoint, "midpoint", mid_point)
 
+
 def test18():
     """Jiachen: try adding something here!"""
     print("This is our first time doing pair programming woot woot!")
     # I think this warrents a pass!
     print("Test_18: PASS")
 
-#the thing is i don't know how to run and i am trying to find it
+
 def test():
     test00()
     test01()
@@ -356,6 +357,6 @@ def test():
     test16()
     test17()
     test18()
-    test19()
+
 
 test()
